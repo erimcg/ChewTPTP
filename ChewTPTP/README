@@ -1,0 +1,70 @@
+
+INSTRUCTIONS FOR INSTALLING CHEWTPTP AND SUPPORTING SOFTWARE
+------------------------------------------------------------
+
+The following programs are not included in the chewtptp install archive but
+are needed to compile chewtptp and its supporting software.
+
+ 	+ g++-4.2 or greater
+	+ autoconf
+	+ automake
+	+ m4 
+	+ lex
+	+ bison
+
+The following instructions assume chewtptp.tar.gz was untarred in $INSTALL_DIR.
+Make the appropriate substitutions in the instructions below.
+
+After untarring, the following files should be in $INSTALL_DIR/chewtptp:
+	
+	+ bin
+	+ gmp-4.2.2
+	+ src
+	+ yices-1.0.13-i686-pc-linux-gnu.tar.gz
+	+ yices-1.0.13-x86_64-pc-linux-gnu.tar.gz
+
+
+1.  	Install GMP (GNU Multiprecision Library) which is required to run Yices.
+	To install, execute the following commands.  Look out for errors,
+	especially when running 'make check'. The libraries are written to 
+	$INSTALL_DIR/chewtptp/gmp-4.2.2/.libs. 
+	(Note the 's' on the end of directory name '.libs')
+
+	$ cd $INSTALL_DIR/chewtptp
+	$ tar -xzvf gmp-4.2.2.tar.gz 
+	$ cd $INSTALL_DIR/chewtptp/gmp-4.2.2
+	$ ./configure
+	$ make
+	$ make check 	<= VERY IMPORTANT!!!
+
+2.	Untar the appropriate version of Yices (http://yices.csl.sri.com) depending
+	on your system architecture.
+
+	$ cd $INSTALL_DIR/chewtptp
+	$ tar -xzvf yices-1.0.13-i686-pc-linux-gnu.tar.gz 
+		or
+	$ tar -xzvf yices-1.0.13-x86_64-pc-linux-gnu.tar.gz 
+	
+3.	Add the directores $INSTALL_DIR/chewtptp/gmp-4.2.2/.libs and 
+	$INSTALL_DIR/chewtptp/yices-1.0.13/lib to your LD_LIBRARY_PATH environmental 
+	variable in your shell script file.  Don't forget to reload the shell script file 
+	to make the variable visible in you environment.
+	
+	E.g. add 'export LD_LIBRARY_PATH=$INSTALL_DIR/chewtptp/gmp-4.2.2/.libs:$INSTALL_DIR/chewtptp/yices-1.0.13/lib' 
+	to .bashrc.
+
+4.	Compile the chewtptp theorem prover
+
+	$ cd $INSTALL_DIR/chewtptp/src
+	$ make
+
+5.	Test that chewtptp is executable.  
+
+	$ cd $INSTALL_DIR/chewtptp/bin
+	$ ./chewtptp
+
+	If you see the message "SZS status InputError: too few arguments" you have
+	succeeded in installing our theorem prover.  If not, please feel free to email me
+	at mcgregre@clarkson.edu. 
+
+Updated: July 24, 2008 by Eric McGregor
